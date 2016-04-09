@@ -26,7 +26,7 @@ var config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Voting App',
+      title: 'Case Graph',
       minify: htmlMinificationConfig
     }),
     new CleanWebpackPlugin([buildDir]),
