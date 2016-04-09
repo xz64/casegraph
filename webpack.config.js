@@ -19,7 +19,7 @@ var minifyJSPlugin = isProduction ? new webpack.optimize.UglifyJsPlugin({}) :
   Function.prototype;
 
 var config = {
-  entry: path.join(__dirname, srcDir, 'index.js'),
+  entry: path.join(__dirname, srcDir, 'app.js'),
   output: {
     path: buildDir,
     filename: 'app.js'
