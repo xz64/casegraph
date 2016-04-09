@@ -4,6 +4,8 @@
   "description": "`npm install`",
   "main": "src/app.js",
   "scripts": {
+    "webpack": "webpack",
+    "webpack-dev-server": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/xz64/casegraph/issues"
   },
-  "homepage": "https://github.com/xz64/casegraph#readme"
+  "homepage": "https://github.com/xz64/casegraph#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.8",
+    "d3": "^3.5.16",
+    "html-webpack-plugin": "^2.15.0",
+    "lodash": "^4.9.0",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
+  }
 }
