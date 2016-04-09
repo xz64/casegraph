@@ -1,0 +1,19 @@
+{
+  "name": "casegraph",
+  "version": "1.0.0",
+  "description": "`npm install`",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xz64/casegraph.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xz64/casegraph/issues"
+  },
+  "homepage": "https://github.com/xz64/casegraph#readme"
+}
