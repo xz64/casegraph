@@ -30,7 +30,8 @@ var config = {
       minify: htmlMinificationConfig
     }),
     new CleanWebpackPlugin([buildDir]),
-    minifyJSPlugin
+    minifyJSPlugin,
+    new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/])
   ],
   module: {
     loaders: [
