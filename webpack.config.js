@@ -35,7 +35,9 @@ var config = {
   ],
   module: {
     loaders: [
-      {test: /\.jade$/, loader: 'jade', exclude: /node_modules/}
+      {test: /\.jade$/, loader: 'jade', exclude: /node_modules/},
+      {test: /\.css/, loaders: ['style', 'css'],
+        exclude: /node_modules\/(?!qtip2)/}
     ]
   },
   devtool: devtools
