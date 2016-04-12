@@ -22,7 +22,6 @@
     "clean-webpack-plugin": "^0.1.8",
     "css-loader": "^0.23.1",
     "d3": "^3.5.16",
-    "domready": "^1.0.8",
     "html-webpack-plugin": "^2.15.0",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
