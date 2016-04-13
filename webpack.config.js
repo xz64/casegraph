@@ -31,7 +31,11 @@ var config = {
     }),
     new CleanWebpackPlugin([buildDir]),
     minifyJSPlugin,
-    new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/])
+    new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
   ],
   module: {
     loaders: [
