@@ -80,6 +80,31 @@ function drawBars(graphElement, data) {
     .attr('class','totalcount');
 }
 
+function drawLegend(graphElement, buckets) {
+  var boxSize = 18;
+  var legendOffset = 200;
+  var legend = graphElement.selectAll('.legend')
+    .data(buckets.slice().reverse())
+    .enter().append('g')
+    .attr('class', 'legend')
+    .attr('transform', function(d, i) {
+      return 'translate(0,' + i * (boxSize + 2) + ')';
+    });
+
+  legend.append('rect')
+    .attr('x', this.width - legendOffset)
+    .attr('width', boxSize)
+    .attr('height', boxSize)
+    .style('fill', this.color);
+
+  legend.append('text')
+    .attr('x', this.width - legendOffset + 1.1 * boxSize)
+    .attr('y', 9)
+    .attr('dy', '.35em')
+    .style('text-anchor', 'start')
+    .text(function(d) { return d + ' days'; });
+}
+
 module.exports = {
   init: function init(element, width) {
     $(element).empty();
@@ -102,6 +127,7 @@ module.exports = {
     setupAxes.call(this);
     drawAxes.call(this, this.graphElement, this.graphHeight);
     drawBars.call(this, this.graphElement, this.graphData);
+    drawLegend.call(this, this.graphElement, this.buckets);
   },
   resize: function resize() {
     this.init(this.element);

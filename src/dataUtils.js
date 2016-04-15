@@ -79,7 +79,7 @@ function groupByBuckets(cases, buckets, metric) {
     .toPairs()
     .sortBy(function(o) { return +o[0]; })
     .map(function(d) {
-      return { name: d[0] + ' days', cases: d[1] };
+      return { name: d[0], cases: d[1] };
     })
     .value();
   return casesByBucket;
