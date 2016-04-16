@@ -1,8 +1,12 @@
 'use strict';
 var _ = require('lodash');
 var $ = require('jquery');
+require('qtip2/dist/jquery.qtip.css');
+require('./qtip-styles.css');
+require('qtip2/dist/jquery.qtip.js');
 var d3 = require('d3');
 var dataUtils = require('./dataUtils.js');
+var tooltip = require('./templates/tooltip.jade');
 
 function setupMargins(element, width, height, margin) {
   return d3.select(element)
@@ -16,6 +20,9 @@ function setupScales(xPoints, yMax, graphWidth, graphHeight, barCategories) {
   this.x = d3.scale.ordinal()
     .domain(xPoints)
     .rangeRoundBands([0, graphWidth], 0.1);
+  this.xPercent = d3.scale.ordinal()
+    .domain(xPoints)
+    .rangePoints([0, 1]);
   this.y = d3.scale.linear()
    .domain([0, yMax])
    .rangeRound([graphHeight, 0]);
@@ -60,7 +67,7 @@ function drawAxes(graphElement, graphHeight, margin) {
     .text('Cases');
 }
 
-function drawBars(graphElement, data) {
+function drawBars(graphElement, data, xPercent) {
   var column = graphElement.selectAll('.column')
     .data(data)
     .enter().append('g')
@@ -74,7 +81,29 @@ function drawBars(graphElement, data) {
     .attr('y', function(d) { return this.y(d.y1); }.bind(this))
     .attr('height', function(d) { return this.y(d.y0) -
       this.y(d.y1); }.bind(this))
-    .style('fill', function(d) { return this.color(d.name); }.bind(this));
+    .style('fill', function(d) { return this.color(d.name); }.bind(this))
+    .each(function(d) {
+      var parentData = d3.select(this.parentNode).datum();
+      var title  = parentData.owner + ': ' + d.cases.length  + ' cases &ge; ' +
+        d.name + ' days';
+      var my = xPercent(parentData.owner) < 0.5 ? 'top left' : 'bottom right';
+      var at = xPercent(parentData.owner) < 0.5 ? 'bottom right' : 'top left';
+      $(this).qtip({
+        content: {
+          title: title,
+          text: tooltip({cases: d.cases}),
+          button: true
+        },
+        position: {
+          my: my,
+          at: at,
+          target: 'mouse',
+          adjust: { mouse: false }
+        },
+        show: { solo: true },
+        style: { classes: 'qtip-light' }
+      });
+    });
 
   column
     .append('text')
@@ -105,7 +134,7 @@ function drawLegend(graphElement, buckets) {
     .attr('x', this.width - legendOffset)
     .attr('width', boxSize)
     .attr('height', boxSize)
-    .style('fill', this.color);
+    .style('fill', this.color)
 
   legend.append('text')
     .attr('x', this.width - legendOffset + 1.1 * boxSize)
@@ -136,7 +165,7 @@ module.exports = {
       this.graphHeight, this.buckets);
     setupAxes.call(this);
     drawAxes.call(this, this.graphElement, this.graphHeight, this.margin);
-    drawBars.call(this, this.graphElement, this.graphData);
+    drawBars.call(this, this.graphElement, this.graphData, this.xPercent);
     drawLegend.call(this, this.graphElement, this.buckets);
   },
   resize: function resize() {

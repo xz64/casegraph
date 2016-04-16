@@ -1,0 +1,7 @@
+.qtip {
+  max-width: none;
+}
+
+.qtip-content {
+  white-space: nowrap;
+}
