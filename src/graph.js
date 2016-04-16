@@ -34,7 +34,7 @@ function setupAxes() {
     .orient('left');
 }
 
-function drawAxes(graphElement, graphHeight) {
+function drawAxes(graphElement, graphHeight, margin) {
   graphElement.append('g')
     .attr('class', 'x axis')
     .attr('transform', 'translate(0,' + graphHeight + ')')
@@ -45,9 +45,19 @@ function drawAxes(graphElement, graphHeight) {
       .attr('y', 0)
       .attr('dy', '.35em')
       .attr('transform', 'rotate(90 0 0)');
+
   graphElement.append('g')
     .attr('class', 'y axis')
-    .call(this.yAxis);
+    .call(this.yAxis)
+    .append('text')
+    .attr('class', 'y axis label')
+    .attr('text-anchor', 'middle')
+    .attr('transform', function() {
+      var xValue = margin.left * -0.75;
+      var yValue = this.parentNode.getBBox().height / 2;
+      return 'translate(' + xValue + ',' + yValue + ') rotate(-90)';
+    })
+    .text('Cases');
 }
 
 function drawBars(graphElement, data) {
@@ -125,7 +135,7 @@ module.exports = {
       _.sumBy(this.graphData[0].bucketedCases, 'cases.length'), this.graphWidth,
       this.graphHeight, this.buckets);
     setupAxes.call(this);
-    drawAxes.call(this, this.graphElement, this.graphHeight);
+    drawAxes.call(this, this.graphElement, this.graphHeight, this.margin);
     drawBars.call(this, this.graphElement, this.graphData);
     drawLegend.call(this, this.graphElement, this.buckets);
   },
