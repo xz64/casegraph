@@ -41,7 +41,9 @@ var config = {
     loaders: [
       {test: /\.jade$/, loader: 'jade', exclude: /node_modules/},
       {test: /\.css/, loaders: ['style', 'css'],
-        exclude: /node_modules\/(?!qtip2)/}
+        exclude: /node_modules\/(?!(qtip2|multiple-select))/},
+      {test: /\.png/, loader: 'url?limit=10000',
+        exclude: /node_modules\/(?!multiple-select)/}
     ]
   },
   devtool: devtools
