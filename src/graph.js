@@ -38,7 +38,8 @@ function setupAxes() {
     });
   this.yAxis = d3.svg.axis()
     .scale(this.y)
-    .orient('left');
+    .orient('left')
+    .tickFormat(d3.format('d'));
 }
 
 function drawAxes(graphElement, graphHeight, margin) {
