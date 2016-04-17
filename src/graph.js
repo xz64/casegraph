@@ -104,8 +104,8 @@ function drawBars(graphElement, data, xPercent, metric) {
       var parentData = d3.select(this.parentNode).datum();
       var title = formatMetric(metric, parentData.owner, d.cases.length,
         d.name);
-      var my = xPercent(parentData.owner) < 0.5 ? 'top left' : 'bottom right';
-      var at = xPercent(parentData.owner) < 0.5 ? 'bottom right' : 'top left';
+      var my = xPercent(parentData.owner) <= 0.5 ? 'top left' : 'bottom right';
+      var at = xPercent(parentData.owner) <= 0.5 ? 'bottom right' : 'top left';
       $(this).qtip({
         content: {
           title: title,
