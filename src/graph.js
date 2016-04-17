@@ -130,7 +130,7 @@ function drawBars(graphElement, data, xPercent, metric) {
     .text(function(d) { return d.bucketedCases[d.bucketedCases.length-1].y1;})
     .attr('y', function(d) {
       var yVal = d.bucketedCases[d.bucketedCases.length-1].y1;
-      return this.y(yVal+0.1);
+      return this.y(yVal) - 2;
     }.bind(this))
     .attr('x', function(d) {
       return this.x.rangeBand()/2;
