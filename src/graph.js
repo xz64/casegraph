@@ -67,7 +67,25 @@ function drawAxes(graphElement, graphHeight, margin) {
     .text('Cases');
 }
 
-function drawBars(graphElement, data, xPercent) {
+function formatMetric(metric, owner, value, bucket) {
+  var title = '';
+  switch(metric) {
+    case 'casedate':
+      title = owner + ': ' + value + ' cases created over ' + bucket +
+        ' days ago';
+      break;
+    case 'lastmsg':
+      title = owner + ': ' + value + ' cases last externally messaged ' +
+        bucket + ' days ago';
+      break;
+    case 'status':
+      title = owner + ': ' + value + ' cases with "' + '" status';
+      break;
+  }
+  return title;
+}
+
+function drawBars(graphElement, data, xPercent, metric) {
   var column = graphElement.selectAll('.column')
     .data(data)
     .enter().append('g')
@@ -84,8 +102,8 @@ function drawBars(graphElement, data, xPercent) {
     .style('fill', function(d) { return this.color(d.name); }.bind(this))
     .each(function(d) {
       var parentData = d3.select(this.parentNode).datum();
-      var title  = parentData.owner + ': ' + d.cases.length  + ' cases &ge; ' +
-        d.name + ' days';
+      var title = formatMetric(metric, parentData.owner, d.cases.length,
+        d.name);
       var my = xPercent(parentData.owner) < 0.5 ? 'top left' : 'bottom right';
       var at = xPercent(parentData.owner) < 0.5 ? 'bottom right' : 'top left';
       $(this).qtip({
@@ -157,19 +175,21 @@ module.exports = {
     this.graphElement = setupMargins(element, this.width, this.height,
       this.margin);
   },
-  render: function render(graphData, buckets) {
+  render: function render(graphData, buckets, metric) {
     this.graphData = graphData;
     this.buckets = buckets;
+    this.metric = metric;
     setupScales.call(this, _.map(this.graphData, 'owner'),
       _.sumBy(this.graphData[0].bucketedCases, 'cases.length'), this.graphWidth,
       this.graphHeight, this.buckets);
     setupAxes.call(this);
     drawAxes.call(this, this.graphElement, this.graphHeight, this.margin);
-    drawBars.call(this, this.graphElement, this.graphData, this.xPercent);
+    drawBars.call(this, this.graphElement, this.graphData, this.xPercent,
+      this.metric);
     drawLegend.call(this, this.graphElement, this.buckets);
   },
   resize: function resize() {
     this.init(this.element);
-    this.render(this.graphData, this.buckets);
+    this.render(this.graphData, this.buckets, this.metric);
   }
 };

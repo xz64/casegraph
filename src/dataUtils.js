@@ -85,10 +85,24 @@ function groupByBuckets(cases, buckets, metric) {
   return casesByBucket;
 }
 
+function groupByOwnerMetric(caselistByOwner, buckets, metric, metricType) {
+  var result;
+  switch(metricType) {
+    case 'date':
+      result = groupByOwnerDateMetric(caselistByOwner, buckets, metric);
+      break;
+    case 'text':
+      result = groupByOwnerTextMetric(caselistByOwner, buckets, metric);
+      break;
+  }
+  return result;
+}
+
 module.exports = {
-  getGraphData: function getGraphData(data, buckets, metric) {
+  getGraphData: function getGraphData(data, buckets, metric, metricType) {
     var caselistByOwner = groupByOwner(data);
-    var result = groupByOwnerDateMetric(caselistByOwner, buckets, metric);
+    var result = groupByOwnerMetric(caselistByOwner, buckets, metric,
+      metricType);
     populateYCoordinates(result);
     populateNicknames(result);
     return result;
@@ -97,5 +111,6 @@ module.exports = {
     return data.filter(function(d) {
       return owners.indexOf(d.owner) > -1;
     });
-  }
+  },
+  getOwners: getOwners
 };
