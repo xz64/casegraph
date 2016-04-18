@@ -121,6 +121,7 @@ function drawBars(graphElement, data, xPercent, metric) {
           adjust: { mouse: false }
         },
         show: { solo: true },
+        hide: { fixed: true, delay: 500 },
         style: { classes: 'qtip-light' }
       });
     });
