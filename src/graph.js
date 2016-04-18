@@ -155,6 +155,7 @@ function drawLegend(graphElement, buckets) {
     .attr('width', boxSize)
     .attr('height', boxSize)
     .style('fill', this.color)
+    .style('stroke', 'black')
 
   legend.append('text')
     .attr('x', this.width - legendOffset + 1.1 * boxSize)
