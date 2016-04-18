@@ -72,11 +72,11 @@ function drawAxes(graphElement, graphHeight, margin) {
 function formatMetric(metric, owner, value, bucket) {
   var title = '';
   switch(metric) {
-    case 'casedate':
+    case 'createddate':
       title = owner + ': ' + value + ' cases created over ' + bucket +
         ' days ago';
       break;
-    case 'lastmsg':
+    case 'lastmsgdate':
       title = owner + ': ' + value + ' cases last externally messaged ' +
         bucket + ' days ago';
       break;
