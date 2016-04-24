@@ -1,3 +1,14 @@
+mixin metricSwitcher
+  .metric-switcher__container#radioContainer
+    input(type='radio', name='metric', value='createddate', checked)
+    | Date Created
+    input(type='radio', name='metric', value='lastmessagedate')
+    | Last Msg. Date
+    input(type='radio', name='metric', value='status')
+    | Status
+    input(type='radio', name='metric', value='product')
+    | Product
+
 .container
   h1 Case Graph
   .file_upload
@@ -6,4 +17,5 @@
   .filter_list
     span Filter:&nbsp;
     #filterList
+  +metricSwitcher
   svg#graph.graph
