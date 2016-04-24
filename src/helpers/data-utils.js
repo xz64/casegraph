@@ -116,7 +116,6 @@ module.exports = {
   getGraphData: function getGraphData(data, buckets, metric) {
     var caselistByOwner = groupByOwner(data);
     var result = groupByOwnerMetric(caselistByOwner, buckets, metric);
-    console.dir(result);
     populateYCoordinates(result);
     populateNicknames(result);
     return result;
