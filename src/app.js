@@ -1,4 +1,5 @@
 'use strict';
+require('normalize.css');
 require('./styles/main.css');
 var $ = require('jquery');
 var _ = require('lodash');
