@@ -6,7 +6,7 @@ require('../styles/qtip-styles.css');
 require('qtip2/dist/jquery.qtip.js');
 require('../styles/graph-styles.css');
 var d3 = require('d3');
-var dataUtils = require('../dataUtils.js');
+var dataUtils = require('../helpers/data-utils.js');
 var tooltip = require('../templates/tooltip.jade');
 
 function setupMargins(element, width, height, margin) {
