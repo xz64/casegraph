@@ -1,4 +1,5 @@
 'use strict';
+require('./styles/main.css');
 var $ = require('jquery');
 var _ = require('lodash');
 var graph = require('./views/graph.js');
