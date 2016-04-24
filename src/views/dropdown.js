@@ -3,8 +3,8 @@ var $ = require('jquery');
 require('multiple-select/multiple-select.css');
 require('multiple-select');
 var _ = require('lodash');
-var graph = require('./views/graph.js');
-var filterList = require('./templates/filterList.jade');
+var graph = require('./graph.js');
+var filterList = require('../templates/filterList.jade');
 
 function getSelectedOwners() {
   return $('#filterListSelect option:selected').map(function(d) {
