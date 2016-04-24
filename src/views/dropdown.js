@@ -11,20 +11,25 @@ function getSelectedOwners() {
     return this.value;}).get();
 }
 
-function filterSelectedOwners(data) {
+function getFilteredData(data) {
   var newOwners = getSelectedOwners();
-  var filteredData = _.filter(data, function(d) {
+  return  _.filter(data, function(d) {
     return newOwners.indexOf(d.owner) > -1;
   });
-  graph.replaceData(filteredData);
+}
+
+function renderFilteredData(data) {
+  data = data || this.graphData;
+  graph.replaceData(getFilteredData(data));
 }
 
 module.exports = {
   render: function render(element, owners, graphData) {
+    this.graphData = graphData;
     $(element).html(filterList({owners: owners}));
     $(element).children('select').multipleSelect({
       width: 300,
-      onClose: filterSelectedOwners.bind(null, graphData)
+      onClose: renderFilteredData.bind(this)
     });
   }
 };
