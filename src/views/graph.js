@@ -197,5 +197,9 @@ module.exports = {
   resize: function resize() {
     this.init(this.element);
     this.render(this.graphData, this.buckets, this.metric);
+  },
+  replaceData: function replaceData(graphData) {
+    this.graphData = graphData;
+    window.setTimeout(this.resize.bind(this), 50);
   }
 };

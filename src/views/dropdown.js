@@ -16,8 +16,7 @@ function filterSelectedOwners(data) {
   var filteredData = _.filter(data, function(d) {
     return newOwners.indexOf(d.owner) > -1;
   });
-  graph.graphData = filteredData;
-  window.setTimeout(graph.resize.bind(graph), 50);
+  graph.replaceData(filteredData);
 }
 
 module.exports = {
