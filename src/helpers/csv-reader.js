@@ -22,7 +22,8 @@ function readFile(file, cb) {
           id: row['Internal ID'],
           assignedto: row['Assigned To'],
           createddate: parseDate(row['Date Created'], null),
-          lastmsgdate: parseDate(row['Last Msg. Date'], row['Date Created']),
+          lastmessagedate: parseDate(row['Last Msg. Date'],
+            row['Date Created']),
           number: row['Number'],
           product: row['Product UF'],
           subject: row['Subject']

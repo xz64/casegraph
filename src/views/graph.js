@@ -76,12 +76,12 @@ function formatMetric(metric, owner, value, bucket) {
       title = owner + ': ' + value + ' cases created over ' + bucket +
         ' days ago';
       break;
-    case 'lastmsgdate':
+    case 'lastmessagedate':
       title = owner + ': ' + value + ' cases last externally messaged ' +
         bucket + ' days ago';
       break;
-    case 'status':
-      title = owner + ': ' + value + ' cases with "' + '" status';
+    default:
+      title = owner + ': ' + value + ' cases with ' + bucket + ' ' + metric;
       break;
   }
   return title;

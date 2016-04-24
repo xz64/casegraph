@@ -20,7 +20,7 @@ function onFileData(err, data) {
   var graphElement = $('#graph')[0];
   graph.init(graphElement);
   dropdown.render(document.getElementById('filterList'), owners, graphData);
-  graph.render(graphData, buckets, 'createddate');
+  graph.render(graphData, buckets, 'lastmessagedate');
   $(window).on('resize', _.debounce(resizeGraph, 200));
 }
 
