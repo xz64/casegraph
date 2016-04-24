@@ -2,12 +2,12 @@
 var _ = require('lodash');
 var $ = require('jquery');
 require('qtip2/dist/jquery.qtip.css');
-require('./styles/qtip-styles.css');
+require('../styles/qtip-styles.css');
 require('qtip2/dist/jquery.qtip.js');
-require('./styles/graph-styles.css');
+require('../styles/graph-styles.css');
 var d3 = require('d3');
-var dataUtils = require('./dataUtils.js');
-var tooltip = require('./templates/tooltip.jade');
+var dataUtils = require('../dataUtils.js');
+var tooltip = require('../templates/tooltip.jade');
 
 function setupMargins(element, width, height, margin) {
   return d3.select(element)

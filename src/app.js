@@ -1,7 +1,7 @@
 'use strict';
 var $ = require('jquery');
 var _ = require('lodash');
-var graph = require('./graph.js');
+var graph = require('./views/graph.js');
 var mainPage = require('./templates/main.jade'); 
 var dropdown = require('./dropdown.js');
 var dataUtils = require('./dataUtils.js');
