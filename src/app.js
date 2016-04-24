@@ -17,10 +17,11 @@ function resizeGraph() {
 function onFileData(err, data) {
   var owners = dataUtils.getOwners(data).sort();
   var graphData = dataUtils.getGraphData(data, buckets, 'createddate');
+  var categories = dataUtils.getBuckets(graphData);
   var graphElement = $('#graph')[0];
   graph.init(graphElement);
   dropdown.render(document.getElementById('filterList'), owners, graphData);
-  graph.render(graphData, buckets, 'lastmessagedate');
+  graph.render(graphData, categories, 'createddate');
   $(window).on('resize', _.debounce(resizeGraph, 200));
 }
 

@@ -163,7 +163,9 @@ function drawLegend(graphElement, buckets) {
     .attr('y', 9)
     .attr('dy', '.35em')
     .style('text-anchor', 'start')
-    .text(function(d) { return d + ' days'; });
+    .text(function(d) {
+      return d + (isNaN(d) ? '' : ' days');
+    });
 }
 
 module.exports = {

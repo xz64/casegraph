@@ -49,10 +49,12 @@ function groupByOwnerDateMetric(caselistByOwner, buckets, metric) {
   });
 }
 
-function groupByOwnerTextMetric(caselistByOwner,
-  metric) {
-  return _.mapValues(caselistByOwner, function(cases) {
-    return _.keyBy(cases, metric);
+function groupByOwnerTextMetric(caselistByOwner, metric) {
+  return _.map(caselistByOwner, function(ownerdata) {
+    return {
+      owner: ownerdata.owner,
+      bucketedCases: groupByMetric(ownerdata.cases, metric)
+    };
   });
 }
 
@@ -71,6 +73,17 @@ function populateNicknames(caselistByOwner) {
   _.forEach(caselistByOwner, function(ownerdata) {
     ownerdata.owner_nickname = nicknames.getNickname(ownerdata.owner);
   });
+}
+
+function groupByMetric(cases, metric) {
+  return _(cases)
+    .groupBy(metric)
+    .toPairs()
+    .sortBy(function(o) { return o[0]; })
+    .map(function(d) {
+      return { name: d[0], cases: d[1] };
+    })
+    .value();
 }
 
 function groupByBuckets(cases, buckets, metric) {
@@ -93,7 +106,7 @@ function groupByOwnerMetric(caselistByOwner, buckets, metric) {
       result = groupByOwnerDateMetric(caselistByOwner, buckets, metric);
       break;
     case 'text':
-      result = groupByOwnerTextMetric(caselistByOwner, buckets, metric);
+      result = groupByOwnerTextMetric(caselistByOwner, metric);
       break;
   }
   return result;
@@ -103,6 +116,7 @@ module.exports = {
   getGraphData: function getGraphData(data, buckets, metric) {
     var caselistByOwner = groupByOwner(data);
     var result = groupByOwnerMetric(caselistByOwner, buckets, metric);
+    console.dir(result);
     populateYCoordinates(result);
     populateNicknames(result);
     return result;
@@ -112,5 +126,16 @@ module.exports = {
       return owners.indexOf(d.owner) > -1;
     });
   },
-  getOwners: getOwners
+  getOwners: getOwners,
+  getBuckets: function getBuckets(graphData) {
+    return _(graphData)
+      .flatMap(function(d) {
+        return _.map(d.bucketedCases, 'name');
+      })
+      .uniq()
+      .sortBy(function(d) {
+        return isNaN(d) ? d : +d;
+      })
+      .value();
+  }
 };

@@ -8,6 +8,10 @@ function parseDate(date, fallbackDate) {
   moment(fallbackDate, 'M/D/YYYY h:mm a').toISOString();
 }
 
+function parseOptionalString(string) {
+  return string.trim() ? string : 'Unspecified';
+}
+
 function readFile(file, cb) {
   var reader = new FileReader();
   reader.onload = function onload() {
@@ -25,7 +29,7 @@ function readFile(file, cb) {
           lastmessagedate: parseDate(row['Last Msg. Date'],
             row['Date Created']),
           number: row['Number'],
-          product: row['Product UF'],
+          product: parseOptionalString(row['Product UF']),
           subject: row['Subject']
         });
       },
