@@ -19,6 +19,7 @@ function readFile(file, cb) {
       step: function step(results, parser) {
         var row = results.data[0];
         result.push({
+          id: row['Internal ID'],
           assignedto: row['Assigned To'],
           createddate: parseDate(row['Date Created'], null),
           lastmsgdate: parseDate(row['Last Msg. Date'], row['Date Created']),

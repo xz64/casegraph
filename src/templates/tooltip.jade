@@ -1,3 +1,4 @@
 ul
   each case_item in cases
-    li #{case_item.number} - #{case_item.subject}
+    li
+      a(target='_blank' href='https://system.netsuite.com/app/crm/support/supportcase.nl?id=#{case_item.id}&e=T') #{case_item.number} - #{case_item.subject}
