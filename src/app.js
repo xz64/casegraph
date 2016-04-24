@@ -16,7 +16,7 @@ function resizeGraph() {
 
 function onFileData(err, data) {
   var owners = dataUtils.getOwners(data).sort();
-  var graphData = dataUtils.getGraphData(data, buckets, 'createddate', 'date');
+  var graphData = dataUtils.getGraphData(data, buckets, 'createddate');
   var graphElement = $('#graph')[0];
   graph.init(graphElement);
   dropdown.render(document.getElementById('filterList'), owners, graphData);

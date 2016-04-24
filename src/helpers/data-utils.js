@@ -85,8 +85,9 @@ function groupByBuckets(cases, buckets, metric) {
   return casesByBucket;
 }
 
-function groupByOwnerMetric(caselistByOwner, buckets, metric, metricType) {
+function groupByOwnerMetric(caselistByOwner, buckets, metric) {
   var result;
+  var metricType = metric.toLowerCase().indexOf('date') > -1 ? 'date' : 'text';
   switch(metricType) {
     case 'date':
       result = groupByOwnerDateMetric(caselistByOwner, buckets, metric);
@@ -99,10 +100,9 @@ function groupByOwnerMetric(caselistByOwner, buckets, metric, metricType) {
 }
 
 module.exports = {
-  getGraphData: function getGraphData(data, buckets, metric, metricType) {
+  getGraphData: function getGraphData(data, buckets, metric) {
     var caselistByOwner = groupByOwner(data);
-    var result = groupByOwnerMetric(caselistByOwner, buckets, metric,
-      metricType);
+    var result = groupByOwnerMetric(caselistByOwner, buckets, metric);
     populateYCoordinates(result);
     populateNicknames(result);
     return result;
