@@ -30,7 +30,8 @@ function readFile(file, cb) {
             row['Date Created']),
           number: row['Number'],
           product: parseOptionalString(row['Product UF']),
-          subject: row['Subject']
+          subject: row['Subject'],
+          status: row['Status']
         });
       },
       complete: function(results, file) {
