@@ -31,7 +31,9 @@ function readFile(file, cb) {
           number: row['Number'],
           product: parseOptionalString(row['Product UF']),
           subject: row['Subject'],
-          status: row['Status']
+          status: row['Status'],
+          severity: row['Severity'],
+          priority: row['Priority']
         });
       },
       complete: function(results, file) {

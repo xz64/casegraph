@@ -8,6 +8,10 @@ mixin metricSwitcher
     | Status
     input(type='radio', name='metric', value='product')
     | Product
+    input(type='radio', name='metric', value='severity')
+    | Severity
+    input(type='radio', name='metric', value='priority')
+    | Priority
 
 .container
   h1 Case Graph

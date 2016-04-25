@@ -14,7 +14,11 @@ var app = {
   resizeGraph: function resizeGraph() {
     graph.resize();
   },
-  graphData: function graphData(data, metric) {
+  switchMetric: function switchMetric(metric) {
+    this.graphData = dataUtils.getGraphData(this.data, buckets, metric);
+    this.categories = dataUtils.getBuckets(this.graphData);
+    graph.replaceData(dropdown.getFilteredData(this.graphData), this.categories,
+      metric);
   },
   onFileData: function onFileData(err, data) {
     this.data = data;
@@ -36,5 +40,10 @@ $(document).ready(function domready() {
   $('#file_upload').on('click', function() {
     var file = $('#file')[0].files[0];
     csvReader.readFile(file, app.onFileData.bind(app));
+  });
+
+  $('input:radio').on('click', function() {
+    var metric = $(this).val();
+    app.switchMetric.call(app, metric);
   });
 });

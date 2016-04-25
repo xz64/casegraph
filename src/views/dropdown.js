@@ -31,5 +31,6 @@ module.exports = {
       width: 300,
       onClose: renderFilteredData.bind(this)
     });
-  }
+  },
+  getFilteredData: getFilteredData
 };

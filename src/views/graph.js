@@ -142,7 +142,7 @@ function drawBars(graphElement, data, xPercent, metric) {
 
 function drawLegend(graphElement, buckets) {
   var boxSize = 18;
-  var legendOffset = 200;
+  var legendOffset = isNaN(buckets[0]) ? 400 : 200;
   var legend = graphElement.selectAll('.legend')
     .data(buckets.slice().reverse())
     .enter().append('g')
@@ -198,8 +198,10 @@ module.exports = {
     this.init(this.element);
     this.render(this.graphData, this.buckets, this.metric);
   },
-  replaceData: function replaceData(graphData) {
+  replaceData: function replaceData(graphData, buckets, metric) {
     this.graphData = graphData;
+    this.buckets = buckets || this.buckets;
+    this.metric = metric || this.metric;
     window.setTimeout(this.resize.bind(this), 50);
   }
 };
